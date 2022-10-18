@@ -10,9 +10,9 @@ const globalConfig = {
         mongo: {
             uri: process.env.MONGO_URI,
         },
-		pg: {
-			uri: process.env.PG_URI,
-		}
+        pg: {
+            uri: process.env.PG_URI,
+        },
     },
 
     jwt: {

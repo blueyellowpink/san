@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import UserModel from './mongo/models/user.model'
+import Token from './mongo/models/token.model'
+import TradingPair from './mongo/models/pair.model'
 
 mongoose.set('debug', true)
 
@@ -8,6 +10,8 @@ export const connectToMongo = async (uri: string): Promise<void> => {
     console.log('Mongo connected')
 }
 
-export default {
+export const models = {
     user: UserModel,
+    Token,
+    TradingPair,
 }

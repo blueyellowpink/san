@@ -1,14 +1,7 @@
-/* import './globalConfig'
-import './server' */
+import { connectToMongo } from '@cainance/db'
 
-// connectToMongo()
+import config from './globalConfig'
+console.log(config)
+import './server'
 
-import models from '@cainance/db'
-
-const user = new models.user({
-	email: 'email',
-	password: '123',
-	refCode: 'qwe123',
-	twoFactorSecret: '2fa'
-})
-console.log(user)
+connectToMongo(config.db.mongo.uri)

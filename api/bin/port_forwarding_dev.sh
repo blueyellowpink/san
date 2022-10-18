@@ -1,1 +1,0 @@
-ssh -f -N -L 27017:localhost:27017 ubuntu@dev.howlcity.io
