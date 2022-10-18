@@ -1,0 +1,1 @@
+{"version":3,"file":"localeKeys.js","sourceRoot":"","sources":["localeKeys.ts"],"names":[],"mappings":";;AAAA,MAAM,UAAU,GAAG;IACf,MAAM,EAAE;QACJ,WAAW,EAAE,oBAAoB;KACpC;IACD,QAAQ,EAAE;QACN,kBAAkB,EAAE,6BAA6B;QACjD,eAAe,EAAE,0BAA0B;QAC3C,WAAW,EAAE,sBAAsB;KACtC;CACJ,CAAC;AAEF,kBAAe,UAAU,CAAC"}

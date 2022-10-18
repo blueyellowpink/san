@@ -1,0 +1,11 @@
+FROM node:16.15.0-buster-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential python3 python3-dev cmake
+
+WORKDIR /app
+COPY . /app
+RUN yarn && yarn build
+
+EXPOSE 3000
+ENTRYPOINT ["yarn", "start"]

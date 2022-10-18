@@ -1,0 +1,12 @@
+syntax = "proto3";
+package tick;
+
+message Tick {
+  double price = 1;
+  double amount = 2;
+  int64 timestamp = 3;
+}
+
+message Ticks {
+  repeated Tick ticks = 1;
+}
