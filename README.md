@@ -35,3 +35,44 @@ http :3000/api/auth/sign-in email=trasuadev@gmail.com password=qwe123
 #     "success": true
 # }
 ```
+
+### get chain list
+```bash
+http :3000/api/chain/list
+# {
+#     "data": [
+#         {
+#             "name": "Binance Smart Chain",
+#             "symbol": "bsc",
+#             "type": "evm"
+#         },
+#         {
+#             "name": "Tron",
+#             "symbol": "tron",
+#             "type": "evm"
+#         },
+#         {
+#             "name": "Ethereum",
+#             "symbol": "eth",
+#             "type": "evm"
+#         },
+#         {
+#             "name": "Polkadot",
+#             "symbol": "dot",
+#             "type": "dot"
+#         },
+#         {
+#             "name": "Solana",
+#             "symbol": "sol",
+#             "type": "solana"
+#         },
+#         {
+#             "name": "NEAR",
+#             "symbol": "near",
+#             "type": "near"
+#         }
+#     ],
+#     "message": "",
+#     "success": true
+# }
+```

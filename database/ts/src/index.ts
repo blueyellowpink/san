@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import UserModel from './mongo/models/user.model'
 import Token from './mongo/models/token.model'
 import TradingPair from './mongo/models/pair.model'
+import Chain from './mongo/models/chain.model'
 
 mongoose.set('debug', true)
 
@@ -14,4 +15,5 @@ export const models = {
     user: UserModel,
     Token,
     TradingPair,
+    Chain,
 }

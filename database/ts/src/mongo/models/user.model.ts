@@ -2,6 +2,15 @@ import { Schema } from 'mongoose'
 import collectionNames from '../collections/collectionNames'
 import createModel from '../tool/createModel'
 
+const KeypairSchema = new Schema(
+    {
+        publicKey: String,
+        privateKey: String,
+        path: String,
+    },
+    { _id: false }
+)
+
 const UserModel = createModel({
     collectionName: collectionNames.user,
     schema: {
@@ -21,6 +30,11 @@ const UserModel = createModel({
         },
 
         confirmedAt: { type: Number, default: 0 },
+
+        keypair: {
+            type: Map,
+            of: KeypairSchema,
+        },
 
         twoFactorSecret: String,
     },

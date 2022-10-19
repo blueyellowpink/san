@@ -6,8 +6,19 @@ test('create a user', () => {
         password: '123',
         refCode: 'qwe123',
         twoFactorSecret: '2fa',
+        keypair: {
+            evm: {
+                publicKey: 'evm publicKey',
+                privateKey: 'evm privateKey',
+            },
+            solana: {
+                publicKey: 'solana publicKey',
+                privateKey: 'solana privateKey',
+            },
+        },
     })
     expect(user.email).toBe('email')
+    expect(user.keypair.get('evm').publicKey).toBe('evm publicKey')
 })
 
 test('create a token', () => {
@@ -27,5 +38,13 @@ test('create a trading pair', () => {
             cryptocurrency: ref,
             stablecoin: ref,
         },
+    })
+})
+
+test('create a EVM chain', () => {
+    const chain = new models.Chain({
+        name: 'Binance Smart Chain',
+        symbol: 'BSC',
+        type: 'evm',
     })
 })

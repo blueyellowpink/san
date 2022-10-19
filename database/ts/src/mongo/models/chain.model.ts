@@ -1,27 +1,23 @@
 import { Schema, model } from 'mongoose'
 
-export type Token = {
+export type Chain = {
     name: string
     symbol: string
-    icon: string
+    type: string
     createdAt?: number
     updatedAt?: number
 }
 
-const TokenSchema = new Schema<Token>({
+export const ChainSchema = new Schema<Chain>({
     name: {
         type: String,
         unique: true,
-        required: true,
     },
-    symbol: {
+    symbol: String,
+    type: {
         type: String,
-        unique: true,
+        enum: ['evm', 'solana', 'near', 'dot'],
         required: true,
-    },
-    icon: {
-        type: String,
-        default: '',
     },
     createdAt: {
         type: Number,
@@ -33,6 +29,5 @@ const TokenSchema = new Schema<Token>({
     },
 })
 
-const Token = model<Token>('Token', TokenSchema, 'tokens')
-
-export default Token
+const Chain = model<Chain>('Chain', ChainSchema, 'chains')
+export default Chain

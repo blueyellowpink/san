@@ -1,6 +1,8 @@
 import authRoutes from './auth.routes'
 import pingRoutes from './ping.routes'
 import userRoutes from './user.routes'
+import chainRoutes from './chain.routes'
+import tradingPairRoutes from './pair.routes'
 
 export type Route = {
     path: string
@@ -10,6 +12,12 @@ export type Route = {
     middlewares?: Array<any> | undefined
 }
 
-const routes = [...authRoutes, ...userRoutes, ...pingRoutes] as Array<Route>
+const routes = [
+    ...authRoutes,
+    ...userRoutes,
+    ...chainRoutes,
+    ...tradingPairRoutes,
+    ...pingRoutes,
+] as Array<Route>
 
 export default routes

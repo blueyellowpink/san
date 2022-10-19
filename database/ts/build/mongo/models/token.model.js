@@ -1,14 +1,7 @@
-import { Schema, model } from 'mongoose'
-
-export type Token = {
-    name: string
-    symbol: string
-    icon: string
-    createdAt?: number
-    updatedAt?: number
-}
-
-const TokenSchema = new Schema<Token>({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const TokenSchema = new mongoose_1.Schema({
     name: {
         type: String,
         unique: true,
@@ -31,8 +24,7 @@ const TokenSchema = new Schema<Token>({
         type: Number,
         default: Date.now,
     },
-})
-
-const Token = model<Token>('Token', TokenSchema, 'tokens')
-
-export default Token
+});
+const Token = (0, mongoose_1.model)('Token', TokenSchema, 'tokens');
+exports.default = Token;
+//# sourceMappingURL=token.model.js.map

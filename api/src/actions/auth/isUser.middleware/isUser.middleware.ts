@@ -1,7 +1,7 @@
 import { verifyJwtToken } from '../../../libs/jwt/jwt'
 
 interface ResponseError extends Error {
-	status?: number
+    status?: number
 }
 
 const throwUnauthorized = () => {

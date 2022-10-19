@@ -1,10 +1,5 @@
 import { Schema, model } from 'mongoose'
 
-type TradingPairSummary = {
-    price: Schema.Types.Decimal128
-    volume: Schema.Types.Decimal128
-}
-
 type TokenPair = {
     cryptocurrency: Schema.Types.ObjectId
     stablecoin: Schema.Types.ObjectId
@@ -26,12 +21,30 @@ const TokenPairSchema = new Schema<TokenPair>(
     { _id: false }
 )
 
+type TradingPairSummaryData = {
+    price: Schema.Types.Decimal128
+    volume: Schema.Types.Decimal128
+    minPrice: Schema.Types.Decimal128
+    maxPrice: Schema.Types.Decimal128
+}
+
+type TradingPairSummary = {
+    last24h: TradingPairSummaryData
+    last4h: TradingPairSummaryData
+    last1h: TradingPairSummaryData
+}
+
+type TradingPairPrice = {
+    amount: Schema.Types.Decimal128
+    isUp: boolean
+}
+
 export type TradingPair = {
     name: string
     token: TradingPair
     marketCap: Schema.Types.Decimal128
-    last24h: TradingPairSummary
-    current: TradingPairSummary
+    summary: TradingPairSummary
+    price: TradingPairPrice
     isFavorite: boolean
     createdAt?: number
     updatedAt?: number
@@ -48,24 +61,70 @@ const TradingPairSchema = new Schema<TradingPair>({
         type: Schema.Types.Decimal128,
         default: 0.0,
     },
-    last24h: {
-        price: {
-            type: Schema.Types.Decimal128,
-            default: 0.0,
+    summary: {
+        last24h: {
+            price: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
         },
-        volume: {
-            type: Schema.Types.Decimal128,
-            default: 0.0,
+        last4h: {
+            price: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+        },
+        last1h: {
+            price: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: Schema.Types.Decimal128,
+                default: 0.0,
+            },
         },
     },
-    current: {
-        price: {
+    price: {
+        amount: {
             type: Schema.Types.Decimal128,
             default: 0.0,
         },
-        volume: {
-            type: Schema.Types.Decimal128,
-            default: 0.0,
+        isUp: {
+            type: Boolean,
+            default: false,
         },
     },
     isFavorite: {
@@ -81,6 +140,8 @@ const TradingPairSchema = new Schema<TradingPair>({
         default: Date.now,
     },
 })
+
+TradingPairSchema.index({ marketCap: -1 })
 
 const TradingPair = model<TradingPair>(
     'TradingPair',

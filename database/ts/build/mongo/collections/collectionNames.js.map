@@ -1,1 +1,1 @@
-{"version":3,"file":"collectionNames.js","sourceRoot":"","sources":["../../../src/mongo/collections/collectionNames.ts"],"names":[],"mappings":";;AAAA,MAAM,eAAe,GAAG;IACpB,IAAI,EAAE,MAAM;CACf,CAAA;AAED,kBAAe,eAAe,CAAA"}
+{"version":3,"file":"collectionNames.js","sourceRoot":"","sources":["../../../src/mongo/collections/collectionNames.ts"],"names":[],"mappings":";;AAAA,MAAM,eAAe,GAAG;IACpB,IAAI,EAAE,MAAM;IACZ,WAAW,EAAE,eAAe;CAC/B,CAAA;AAED,kBAAe,eAAe,CAAA"}
