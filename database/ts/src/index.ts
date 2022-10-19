@@ -4,6 +4,8 @@ import Token from './mongo/models/token.model'
 import TradingPair from './mongo/models/pair.model'
 import Chain from './mongo/models/chain.model'
 
+import CainanceSequel from './pgsql'
+
 mongoose.set('debug', true)
 
 export const connectToMongo = async (uri: string): Promise<void> => {
@@ -17,3 +19,5 @@ export const models = {
     TradingPair,
     Chain,
 }
+
+export { CainanceSequel }
