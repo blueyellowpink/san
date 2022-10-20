@@ -4,28 +4,13 @@ const orderDefine = sequelize => {
     const Order = sequelize.define(
         'orders',
         {
-            id: {
-                type: DataTypes.INTEGER,
-                autoIncrement: true,
-                primaryKey: true,
-                unique: true,
-                allowNull: false,
-            },
-            pairId: {
+            tradingPairId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                references: {
-                    key: 'id',
-                    model: 'pairs',
-                },
             },
             userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                references: {
-                    key: 'id',
-                    model: 'accounts',
-                },
             },
             initAllowance: {
                 type: DataTypes.DECIMAL(65, 8).UNSIGNED,
@@ -48,11 +33,13 @@ const orderDefine = sequelize => {
                 allowNull: false,
             },
             orderSide: {
-                type: DataTypes.ENUM('ASK', 'BID'),
+                type: DataTypes.ENUM,
+				values: ['ask', 'bid'],
                 allowNull: false,
             },
             orderType: {
-                type: DataTypes.ENUM('LIMIT', 'MARKET', 'STOP_LIMIT', 'OCO'),
+                type: DataTypes.ENUM,
+				values: ['limit', 'market', 'stop_limit', 'oco'],
                 allowNull: false,
             },
             active: {
@@ -61,19 +48,17 @@ const orderDefine = sequelize => {
                 allowNull: false,
             },
             status: {
-                type: DataTypes.ENUM(
-                    'FILLED',
-                    'PARTIALLY_FILLED',
-                    'CANCELED',
-                    'EXPIRED'
-                ),
-                allowNull: true,
+                type: DataTypes.ENUM,
+				values: [
+                    'pending',
+                    'filled',
+                    'partially_filled',
+                    'canceled',
+                    'expired'
+				],
+				defaultValue: 'pending',
+                allowNull: false,
             },
-        },
-        {
-            timestamps: true,
-            createdAt: true,
-            updatedAt: true,
         }
     )
 
@@ -81,8 +66,7 @@ const orderDefine = sequelize => {
 }
 
 export type Order = {
-    id: number
-    pairId: number
+    tradingPairId: number
     userId: number
     initAllowance: number
     allowance: number
@@ -93,8 +77,8 @@ export type Order = {
     orderType: string
     active: boolean
     status: string
-    createdAt: any
-    updatedAt: any
+    createdAt?: any
+    updatedAt?: any
 }
 
 export default orderDefine
