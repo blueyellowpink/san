@@ -1,0 +1,12 @@
+# # copy `repositories.bzl` file from `@npm_deps//:repositories.bzl`
+# load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+# write_source_files(
+# 	name = "update_repos",
+# 	files = {
+# 		"repositories.bzl": "@npm//:repositories.bzl",
+# 	},
+# )
+
+# link all npm packages into Bazel package containing the `package.json` file
+load("@npm//:defs.bzl", "npm_link_all_packages")
+npm_link_all_packages(name = "node_modules")

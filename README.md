@@ -3,6 +3,33 @@
 ## Requirements
 - NodeJS v16.17.0
 
+## Bazel build
+- generate `pnpm-lock.yaml` file without install packages
+```bash
+npx pnpm install --lockfile-only
+```
+
+- fetch packages from NPM
+```bash
+bazel fetch @npm_deps//...
+```
+
+- (optional) query location, build
+```bash
+bazel query @npm_deps//... --output=location
+bazel query --output=build @npm_deps//:typescript
+```
+
+- copy `repositories.bzl` file from `@npm_deps//:repositories.bzl`
+```bash
+bazel run //:update_repos
+```
+
+- build
+```bash
+bazel build ...
+```
+
 ## Docs
 
 ### Sign up
