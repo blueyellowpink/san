@@ -1,5 +1,6 @@
 import checkExsited from './checkExisted'
 import createAccount from './createAccount'
+import createSpotWallet from './createSpotWallet'
 import getRefer from './getRefer'
 import validateInput from './validateInput'
 
@@ -15,6 +16,8 @@ const registerAction = async args => {
 
     if (refer?._id) account.refer = refer._id
     await account.save()
+
+	await createSpotWallet(account._id.toString())
 
     return {
         account: {

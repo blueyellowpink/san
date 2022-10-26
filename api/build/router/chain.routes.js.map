@@ -1,0 +1,1 @@
+{"version":3,"file":"chain.routes.js","sourceRoot":"","sources":["../../src/router/chain.routes.ts"],"names":[],"mappings":";;AAAA,wDAAwD;AAExD,MAAM,MAAM,GAAG;IACX;QACI,IAAI,EAAE,aAAa;QACnB,MAAM,EAAE,KAAK;QACb,MAAM,EAAE,uBAAY;KACvB;CACJ,CAAA;AAED,kBAAe,MAAM,CAAA"}

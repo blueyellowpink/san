@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import orderDefine, { Order } from './models/Order'
 import tradeDefine, { Trade } from './models/Trade'
+import { spotWalletDefine } from './models/Wallet'
 
 export { Order, Trade }
 
@@ -9,6 +10,7 @@ class CainanceSequel {
     static sequelize: any
     static Order: any
     static Trade: any
+	static SpotWallet: any
 
     public static async connect(
         {
@@ -52,6 +54,7 @@ class CainanceSequel {
         }
 
         CainanceSequel.initModel()
+        CainanceSequel.initAssociation()
 
         if (options.sync) {
             await CainanceSequel.sync(options.dev, options.force)
@@ -68,14 +71,18 @@ class CainanceSequel {
         CainanceSequel.Order = orderDefine(CainanceSequel.sequelize)
         CainanceSequel.Trade = tradeDefine(CainanceSequel.sequelize)
 
-        /* CainanceSequel.Order.belongsTo(CainanceSequel.Pair)
-        CainanceSequel.Order.belongsTo(CainanceSequel.Account, {
-            foreignKey: 'userId',
-        })
-        CainanceSequel.Account.hasMany(CainanceSequel.Order, {
-            foreignKey: 'userId',
-        }) */
+        CainanceSequel.SpotWallet = spotWalletDefine(CainanceSequel.sequelize)
     }
+
+	private static initAssociation(): void {
+		/* An Order has many Trade(s) */
+		CainanceSequel.Order.hasMany(CainanceSequel.Trade, {
+			foreignKey: {
+				allowNull: false
+			}
+		})
+		CainanceSequel.Trade.belongsTo(CainanceSequel.Order)
+	}
 }
 
 export default CainanceSequel

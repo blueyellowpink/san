@@ -21,6 +21,12 @@ const userRoutes = [
         action: userActions.save2FaQr,
         auth: true,
     },
+    {
+        path: '/user/spot_wallet',
+        method: 'get',
+        action: userActions.getSpotWallet,
+        auth: true,
+    },
 ]
 
 export default userRoutes

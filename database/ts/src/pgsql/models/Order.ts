@@ -1,33 +1,33 @@
-import { Sequelize, DataTypes } from 'sequelize'
+import { DataTypes } from 'sequelize'
 
 const orderDefine = sequelize => {
     const Order = sequelize.define('orders', {
         tradingPairId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.TEXT,
             allowNull: false,
         },
-        userId: {
-            type: DataTypes.INTEGER,
+        accountId: {
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         initAllowance: {
-            type: DataTypes.DECIMAL(65, 8).UNSIGNED,
+            type: DataTypes.DECIMAL(19, 8).UNSIGNED,
             allowNull: false,
         },
         allowance: {
-            type: DataTypes.DECIMAL(65, 8).UNSIGNED,
+            type: DataTypes.DECIMAL(19, 8).UNSIGNED,
             allowNull: false,
         },
         price: {
-            type: DataTypes.DECIMAL(65, 8).UNSIGNED,
+            type: DataTypes.DECIMAL(19, 8).UNSIGNED,
             allowNull: false,
         },
         initAmount: {
-            type: DataTypes.DECIMAL(65, 8).UNSIGNED,
+            type: DataTypes.DECIMAL(19, 8).UNSIGNED,
             allowNull: false,
         },
         amount: {
-            type: DataTypes.DECIMAL(65, 8).UNSIGNED,
+            type: DataTypes.DECIMAL(19, 8).UNSIGNED,
             allowNull: false,
         },
         orderSide: {
@@ -63,8 +63,8 @@ const orderDefine = sequelize => {
 }
 
 export type Order = {
-    tradingPairId: number
-    userId: number
+    tradingPair: number
+    accountId: string
     initAllowance: number
     allowance: number
     price: number

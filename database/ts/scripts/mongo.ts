@@ -171,9 +171,9 @@ const insertTradingPairs = async () => {
 !(async () => {
     await connectToMongo('mongodb://localhost:27017')
 
-    // await insertChains()
-    // await insertTokens()
-    // await insertTradingPairs()
+    await insertChains()
+    await insertTokens()
+    await insertTradingPairs()
 
     process.exit(0)
 })()

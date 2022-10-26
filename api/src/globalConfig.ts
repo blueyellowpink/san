@@ -10,8 +10,11 @@ const globalConfig = {
         mongo: {
             uri: process.env.MONGO_URI,
         },
-        pg: {
-            uri: process.env.PG_URI,
+        pgsql: {
+            database: process.env.PGSQL_DATABASE,
+            user: process.env.PGSQL_USER,
+            password: process.env.PGSQL_PASSWORD,
+            host: process.env.PGSQL_HOST,
         },
     },
 

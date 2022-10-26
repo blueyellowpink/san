@@ -1,0 +1,1 @@
+{"version":3,"file":"getRefPoint.js","sourceRoot":"","sources":["../../../../src/actions/user/getRef.action/getRefPoint.ts"],"names":[],"mappings":";;;AAAA,qCAAqC;AAErC,MAAM,WAAW,GAAG,CAAM,MAAM,EAAC,EAAE;IAC/B,MAAM,KAAK,GAAG,EAAE,KAAK,EAAE,MAAM,EAAE,CAAA;IAE/B,OAAO,WAAM,CAAC,IAAI,CAAC,cAAc,CAAC,KAAK,CAAC,CAAA;AAC5C,CAAC,CAAA,CAAA;AAED,kBAAe,WAAW,CAAA"}

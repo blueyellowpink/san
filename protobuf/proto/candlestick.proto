@@ -1,0 +1,15 @@
+syntax = "proto3";
+package candlestick;
+
+message Candlestick {
+  double volume = 1;
+  double open = 2;
+  double close = 3;
+  double high = 4;
+  double low = 5;
+  int64 timestamp = 6;
+}
+
+message Candlesticks {
+  repeated Candlestick candlesticks = 1;
+}

@@ -24,24 +24,70 @@ const TradingPairSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.Decimal128,
         default: 0.0,
     },
-    last24h: {
-        price: {
-            type: mongoose_1.Schema.Types.Decimal128,
-            default: 0.0,
+    summary: {
+        last24h: {
+            price: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
         },
-        volume: {
-            type: mongoose_1.Schema.Types.Decimal128,
-            default: 0.0,
+        last4h: {
+            price: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+        },
+        last1h: {
+            price: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            volume: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            minPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
+            maxPrice: {
+                type: mongoose_1.Schema.Types.Decimal128,
+                default: 0.0,
+            },
         },
     },
-    current: {
-        price: {
+    price: {
+        amount: {
             type: mongoose_1.Schema.Types.Decimal128,
             default: 0.0,
         },
-        volume: {
-            type: mongoose_1.Schema.Types.Decimal128,
-            default: 0.0,
+        isUp: {
+            type: Boolean,
+            default: false,
         },
     },
     isFavorite: {

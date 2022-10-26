@@ -1,0 +1,1 @@
+{"version":3,"file":"pair.routes.js","sourceRoot":"","sources":["../../src/router/pair.routes.ts"],"names":[],"mappings":";;AAAA,mEAAmE;AAEnE,MAAM,MAAM,GAAG;IACX;QACI,IAAI,EAAE,YAAY;QAClB,MAAM,EAAE,KAAK;QACb,MAAM,EAAE,mCAAkB;KAC7B;CACJ,CAAA;AAED,kBAAe,MAAM,CAAA"}

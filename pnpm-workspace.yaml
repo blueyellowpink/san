@@ -1,3 +1,4 @@
 packages:
   - 'api'
   - 'database/ts'
+  - 'protobuf/ts'
