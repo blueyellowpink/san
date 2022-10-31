@@ -5,6 +5,7 @@ import TradingPair from './mongo/models/pair.model'
 import Chain from './mongo/models/chain.model'
 
 import CainanceSequel from './pgsql'
+import redis from './redis'
 
 mongoose.set('debug', true)
 
@@ -20,4 +21,4 @@ export const models = {
     Chain,
 }
 
-export { CainanceSequel }
+export { CainanceSequel, redis }

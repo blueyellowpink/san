@@ -1,8 +1,9 @@
 import { DataTypes } from 'sequelize'
+import { proto } from '@cainance/protobuf'
 
 const orderDefine = sequelize => {
-    const Order = sequelize.define('orders', {
-        tradingPairId: {
+    const order = sequelize.define('orders', {
+        tradingPair: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
@@ -31,13 +32,11 @@ const orderDefine = sequelize => {
             allowNull: false,
         },
         orderSide: {
-            type: DataTypes.ENUM,
-            values: ['ask', 'bid'],
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         orderType: {
-            type: DataTypes.ENUM,
-            values: ['limit', 'market', 'stop_limit', 'oco'],
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         active: {
@@ -48,30 +47,40 @@ const orderDefine = sequelize => {
         status: {
             type: DataTypes.ENUM,
             values: [
-                'pending',
+                'new',
                 'filled',
                 'partially_filled',
                 'canceled',
+				'rejected',
                 'expired',
             ],
-            defaultValue: 'pending',
+            defaultValue: 'new',
             allowNull: false,
         },
-    })
+	}, {
+		indexes: [
+			{
+				using: 'BTREE',
+				fields: [
+					'accountId'
+				]
+			}
+		]
+	})
 
-    return Order
+    return order
 }
 
 export type Order = {
-    tradingPair: number
+    tradingPair: string
     accountId: string
     initAllowance: number
     allowance: number
     price: number
     initAmount: number
     amount: number
-    orderSide: string
-    orderType: string
+    orderSide: number
+    orderType: number
     active: boolean
     status: string
     createdAt?: any

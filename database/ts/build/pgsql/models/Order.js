@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const orderDefine = sequelize => {
-    const Order = sequelize.define('orders', {
-        tradingPairId: {
+    const order = sequelize.define('orders', {
+        tradingPair: {
             type: sequelize_1.DataTypes.TEXT,
             allowNull: false,
         },
@@ -32,13 +32,11 @@ const orderDefine = sequelize => {
             allowNull: false,
         },
         orderSide: {
-            type: sequelize_1.DataTypes.ENUM,
-            values: ['ask', 'bid'],
+            type: sequelize_1.DataTypes.INTEGER,
             allowNull: false,
         },
         orderType: {
-            type: sequelize_1.DataTypes.ENUM,
-            values: ['limit', 'market', 'stop_limit', 'oco'],
+            type: sequelize_1.DataTypes.INTEGER,
             allowNull: false,
         },
         active: {
@@ -58,8 +56,17 @@ const orderDefine = sequelize => {
             defaultValue: 'pending',
             allowNull: false,
         },
+    }, {
+        indexes: [
+            {
+                using: 'BTREE',
+                fields: [
+                    'accountId'
+                ]
+            }
+        ]
     });
-    return Order;
+    return order;
 };
 exports.default = orderDefine;
 //# sourceMappingURL=Order.js.map

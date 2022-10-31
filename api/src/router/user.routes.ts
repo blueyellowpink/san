@@ -27,6 +27,30 @@ const userRoutes = [
         action: userActions.getSpotWallet,
         auth: true,
     },
+    {
+        path: '/user/buy',
+        method: 'post',
+        action: userActions.buy,
+        auth: true,
+    },
+    {
+        path: '/user/sell',
+        method: 'post',
+        action: userActions.sell,
+        auth: true,
+    },
+    {
+        path: '/user/cancel',
+        method: 'post',
+        action: userActions.cancel,
+        auth: true,
+    },
+    {
+        path: '/user/orders',
+        method: 'get',
+        action: userActions.getOrder,
+        auth: true,
+    },
 ]
 
 export default userRoutes

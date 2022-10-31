@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 
 export const spotWalletDefine = sequelize => {
-	const wallet = sequelize.define('spotWallets', {
+	const wallet = sequelize.define('spot_wallets', {
         accountId: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -20,7 +20,6 @@ export const spotWalletDefine = sequelize => {
 	}, {
 		indexes: [
 			{
-				name: 'accountId_index',
 				using: 'BTREE',
 				fields: [
 					'accountId'

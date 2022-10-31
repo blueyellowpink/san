@@ -1,18 +1,18 @@
 import { Schema, model } from 'mongoose'
 
 type TokenPair = {
-    cryptocurrency: Schema.Types.ObjectId
-    stablecoin: Schema.Types.ObjectId
+    base: Schema.Types.ObjectId
+    quote: Schema.Types.ObjectId
 }
 
 const TokenPairSchema = new Schema<TokenPair>(
     {
-        cryptocurrency: {
+        base: {
             type: Schema.Types.ObjectId,
             ref: 'Token',
             required: true,
         },
-        stablecoin: {
+        quote: {
             type: Schema.Types.ObjectId,
             ref: 'Token',
             required: true,

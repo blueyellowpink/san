@@ -1,10 +1,12 @@
 import http from 'http'
 import express from 'express'
-import globalConfig from './globalConfig'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
+
+import globalConfig from './globalConfig'
 import router from './router/router'
+import websocket from './ws'
 
 const { port, basePath } = globalConfig.server
 const app = express()
@@ -27,3 +29,5 @@ server.on('error', e => {
     process.exit(1)
 })
 server.on('listening', () => console.log(`http://127.0.0.1:${port}${basePath}`))
+
+websocket(server)

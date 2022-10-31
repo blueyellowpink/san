@@ -17,6 +17,9 @@ const globalConfig = {
             host: process.env.PGSQL_HOST,
         },
     },
+    kafka: {
+        brokers: process.env.KAFKA_BROKERS.split(' '),
+    },
     jwt: {
         secret: process.env.JWT_SECRET,
     },

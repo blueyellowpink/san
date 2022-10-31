@@ -34,11 +34,11 @@ const getSpotWallet = async () => {
             host: 'localhost',
         },
         {
-            sync: false,
+            sync: true,
         }
     )
 
-	await createSpotWalletTransaction()
-	await getSpotWallet()
+	// await createSpotWalletTransaction()
+	// await getSpotWallet()
 	// await findAllSpotWallet()
 })()

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.spotWalletDefine = void 0;
 const sequelize_1 = require("sequelize");
 const spotWalletDefine = sequelize => {
-    const wallet = sequelize.define('spotWallets', {
+    const wallet = sequelize.define('spot_wallets', {
         accountId: {
             type: sequelize_1.DataTypes.TEXT,
             allowNull: false,
@@ -22,7 +22,6 @@ const spotWalletDefine = sequelize => {
     }, {
         indexes: [
             {
-                name: 'accountId_index',
                 using: 'BTREE',
                 fields: [
                     'accountId'

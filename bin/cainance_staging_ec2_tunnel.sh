@@ -27,3 +27,13 @@ then
 else
     echo "Redis is tunneling"
 fi
+
+# tunnel Kafka
+COUNT=$(netstat -anp tcp | grep 127.0.0.1.9092 | wc -l)
+if [ $COUNT = 0 ]
+then
+    echo "Start Kafka tunneling"
+    ssh -f cainance-staging -L 9092:127.0.0.1:9092 -N
+else
+    echo "Kafka is tunneling"
+fi

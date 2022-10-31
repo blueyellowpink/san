@@ -1,29 +1,28 @@
 import { CainanceSequel } from '@cainance/db'
+import { validateWallet } from './validate'
 
-type Asset = {
-	token: string
-	amout: string
+type Row = {
+    token: string
+    amout: string
 }
 
-export const getSpotWallet = async (req): Promise<Array<Asset>> => {
-    try {
-		const wallets = await CainanceSequel.SpotWallet.findAll({
-			where: {
-				accountId: req.user._id.toString()
-			},
-			attributes: ['token', 'amount'],
-			order: [
-				['amount', 'DESC'],
-				['token']
-			]
-		})
+type Asset = {
+    count: number
+    rows: Array<Row>
+}
 
-        if (wallets) {
-            return wallets.map(wallet => wallet.toJSON() as Asset)
-        }
+export const getSpotWallet = async (req): Promise<Asset> => {
+    const args = validateWallet(req.query)
 
-        return []
-    } catch (err) {
-        throw new Error(err.message)
-    }
+    const { count, rows } = await CainanceSequel.SpotWallet.findAndCountAll({
+        where: {
+            accountId: req.user._id.toString(),
+        },
+        attributes: ['token', 'amount'],
+        order: [['amount', 'DESC'], ['token']],
+        limit: args.limit,
+        offset: args.limit * (args.page - 1),
+    })
+
+    return { count, rows } as Asset
 }

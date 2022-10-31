@@ -17,7 +17,7 @@ const registerAction = async args => {
     if (refer?._id) account.refer = refer._id
     await account.save()
 
-	await createSpotWallet(account._id.toString())
+    await createSpotWallet(account._id.toString())
 
     return {
         account: {

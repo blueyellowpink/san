@@ -11,7 +11,7 @@ const createSpotWallet = (accountId) => tslib_1.__awaiter(void 0, void 0, void 0
         const wallets = tokens.map(token => {
             return {
                 accountId,
-                token: token.symbol
+                token: token.symbol,
             };
         });
         yield db_1.CainanceSequel.SpotWallet.bulkCreate(wallets);

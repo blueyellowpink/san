@@ -27,6 +27,30 @@ const userRoutes = [
         action: userActions_1.default.getSpotWallet,
         auth: true,
     },
+    {
+        path: '/user/buy',
+        method: 'post',
+        action: userActions_1.default.buy,
+        auth: true,
+    },
+    {
+        path: '/user/sell',
+        method: 'post',
+        action: userActions_1.default.sell,
+        auth: true,
+    },
+    {
+        path: '/user/cancel',
+        method: 'post',
+        action: userActions_1.default.cancel,
+        auth: true,
+    },
+    {
+        path: '/user/orders',
+        method: 'get',
+        action: userActions_1.default.getOrder,
+        auth: true,
+    },
 ];
 exports.default = userRoutes;
 //# sourceMappingURL=user.routes.js.map

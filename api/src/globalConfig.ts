@@ -18,6 +18,10 @@ const globalConfig = {
         },
     },
 
+    kafka: {
+        brokers: process.env.KAFKA_BROKERS.split(' '),
+    },
+
     jwt: {
         secret: process.env.JWT_SECRET,
     },
