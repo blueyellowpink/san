@@ -59,7 +59,7 @@ const websocket = server => {
             candlestickData.stream += params.symbol;
         }
         catch (err) {
-            ws.send(JSON.stringify({ error: "Error" }), () => {
+            ws.send(JSON.stringify({ error: 'Error' }), () => {
                 ws.close();
             });
         }
