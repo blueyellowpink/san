@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const TokenPairSchema = new mongoose_1.Schema({
-    cryptocurrency: {
+    base: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Token',
         required: true,
     },
-    stablecoin: {
+    quote: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Token',
         required: true,

@@ -47,13 +47,14 @@ const orderDefine = sequelize => {
         status: {
             type: sequelize_1.DataTypes.ENUM,
             values: [
-                'pending',
+                'new',
                 'filled',
                 'partially_filled',
                 'canceled',
+                'rejected',
                 'expired',
             ],
-            defaultValue: 'pending',
+            defaultValue: 'new',
             allowNull: false,
         },
     }, {

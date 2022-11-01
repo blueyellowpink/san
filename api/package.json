@@ -5,7 +5,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "build": "tsc --project tsconfig.json",
+        "build": "rm -rf build && tsc --project tsconfig.json",
         "dev": "node -r dotenv/config build/main.js dotenv_config_path=../.env",
         "dev:build": "yarn build && yarn dev",
         "start": "NODE_ENV=prod node build/main.js",
