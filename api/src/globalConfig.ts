@@ -22,6 +22,10 @@ const globalConfig = {
         brokers: process.env.KAFKA_BROKERS.split(' '),
     },
 
+    redis: {
+        master: process.env.REDIS_MASTER,
+    },
+
     jwt: {
         secret: process.env.JWT_SECRET,
     },
