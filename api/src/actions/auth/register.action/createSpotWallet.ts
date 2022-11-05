@@ -1,4 +1,4 @@
-import { CainanceSequel, models } from '@cainance/db'
+/* import { CainanceSequel, models } from '@cainance/db'
 
 const createSpotWallet = async (accountId: string): Promise<void> => {
     try {
@@ -20,4 +20,4 @@ const createSpotWallet = async (accountId: string): Promise<void> => {
     }
 }
 
-export default createSpotWallet
+export default createSpotWallet */

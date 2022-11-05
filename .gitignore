@@ -4,3 +4,5 @@ bazel-bin
 bazel-out
 bazel-san
 bazel-testlogs
+
+**/target

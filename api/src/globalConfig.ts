@@ -29,6 +29,8 @@ const globalConfig = {
     jwt: {
         secret: process.env.JWT_SECRET,
     },
+
+    evmMnemonic: process.env.EVM_MNEMONIC,
 }
 
 export default globalConfig

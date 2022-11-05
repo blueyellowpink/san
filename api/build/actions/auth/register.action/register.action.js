@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const checkExisted_1 = tslib_1.__importDefault(require("./checkExisted"));
 const createAccount_1 = tslib_1.__importDefault(require("./createAccount"));
-const createSpotWallet_1 = tslib_1.__importDefault(require("./createSpotWallet"));
 const getRefer_1 = tslib_1.__importDefault(require("./getRefer"));
 const validateInput_1 = tslib_1.__importDefault(require("./validateInput"));
 const registerAction = (args) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
@@ -16,7 +15,6 @@ const registerAction = (args) => tslib_1.__awaiter(void 0, void 0, void 0, funct
     if (refer === null || refer === void 0 ? void 0 : refer._id)
         account.refer = refer._id;
     yield account.save();
-    yield (0, createSpotWallet_1.default)(account._id.toString());
     return {
         account: {
             email: account.email,

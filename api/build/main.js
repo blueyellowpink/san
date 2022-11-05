@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const db_1 = require("@cainance/db");
-const kafka_1 = require("./libs/kafka");
 const globalConfig_1 = tslib_1.__importDefault(require("./globalConfig"));
 console.log(globalConfig_1.default);
 require("./server");
@@ -15,7 +14,7 @@ db_1.CainanceSequel.connect({
 }, {
     sync: false,
 });
-kafka_1.producer.connect();
+// producer.connect()
 !(() => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     yield db_1.redis.connect();
     console.log('Redis connected');

@@ -1,28 +1,30 @@
 import { CainanceSequel } from '../src'
 
 const createSpotWalletTransaction = async () => {
-	const accountId = 'a'
-	const wallets = [
-		{
-			accountId,
-			token: 'BTC',
-		},
-		{
-			accountId,
-			token: 'SOL',
-		},
-		{
-			accountId,
-			token: 'ETH',
-		},
-	]
+    const accountId = 'a'
+    const wallets = [
+        {
+            accountId,
+            token: 'BTC',
+        },
+        {
+            accountId,
+            token: 'SOL',
+        },
+        {
+            accountId,
+            token: 'ETH',
+        },
+    ]
 
-	await CainanceSequel.SpotWallet.bulkCreate(wallets)
+    await CainanceSequel.SpotWallet.bulkCreate(wallets)
 }
 
 const getSpotWallet = async () => {
-	const items = await CainanceSequel.SpotWallet.findAll({ where: { accountId: 'a' } })
-	console.log(items.map(item => item.toJSON()))
+    const items = await CainanceSequel.SpotWallet.findAll({
+        where: { accountId: 'a' },
+    })
+    console.log(items.map(item => item.toJSON()))
 }
 
 !(async () => {
@@ -38,7 +40,7 @@ const getSpotWallet = async () => {
         }
     )
 
-	// await createSpotWalletTransaction()
-	// await getSpotWallet()
-	// await findAllSpotWallet()
+    // await createSpotWalletTransaction()
+    // await getSpotWallet()
+    // await findAllSpotWallet()
 })()

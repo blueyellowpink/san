@@ -21,7 +21,7 @@ CainanceSequel.connect(
     }
 )
 
-producer.connect()
+// producer.connect()
 
 !(async () => {
     await redis.connect()

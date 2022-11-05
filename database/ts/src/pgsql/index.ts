@@ -10,7 +10,7 @@ class CainanceSequel {
     static sequelize: any
     static Order: any
     static Trade: any
-	static SpotWallet: any
+    static SpotWallet: any
 
     public static async connect(
         {
@@ -74,15 +74,15 @@ class CainanceSequel {
         CainanceSequel.SpotWallet = spotWalletDefine(CainanceSequel.sequelize)
     }
 
-	private static initAssociation(): void {
-		/* An Order has many Trade(s) */
-		CainanceSequel.Order.hasMany(CainanceSequel.Trade, {
-			foreignKey: {
-				allowNull: false
-			}
-		})
-		CainanceSequel.Trade.belongsTo(CainanceSequel.Order)
-	}
+    private static initAssociation(): void {
+        /* An Order has many Trade(s) */
+        CainanceSequel.Order.hasMany(CainanceSequel.Trade, {
+            foreignKey: {
+                allowNull: false,
+            },
+        })
+        CainanceSequel.Trade.belongsTo(CainanceSequel.Order)
+    }
 }
 
 export default CainanceSequel
