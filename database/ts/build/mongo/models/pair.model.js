@@ -19,7 +19,7 @@ const TradingPairSchema = new mongoose_1.Schema({
         unique: true,
         required: true,
     },
-    token: TokenPairSchema,
+    pair: TokenPairSchema,
     marketCap: {
         type: mongoose_1.Schema.Types.Decimal128,
         default: 0.0,

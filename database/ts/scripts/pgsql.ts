@@ -37,6 +37,7 @@ const getSpotWallet = async () => {
         },
         {
             sync: true,
+            // alter: true,
         }
     )
 

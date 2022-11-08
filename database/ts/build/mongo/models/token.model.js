@@ -12,6 +12,13 @@ const TokenSchema = new mongoose_1.Schema({
         unique: true,
         required: true,
     },
+    chains: [
+        {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'chains',
+            required: true,
+        },
+    ],
     icon: {
         type: String,
         default: '',

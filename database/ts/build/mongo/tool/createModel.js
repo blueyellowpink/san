@@ -10,7 +10,7 @@ const createModel = ({ collectionName, schema, index }) => {
             type: Number,
             default: Date.now,
         } }));
-    Schema.index(Object.assign({ createdAt: -1, updatedAt: -1 }, (index || {})));
+    Schema.index(Object.assign({}, (index || {})));
     const Model = mongoose_1.default.model(collectionName, Schema, collectionName);
     return Model;
 };

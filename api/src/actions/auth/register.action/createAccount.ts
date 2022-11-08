@@ -6,7 +6,7 @@ import { Wallet as EvmKeypair } from 'ethers'
 import { Keypair as SolanaKeypair } from '@solana/web3.js'
 import config from '../../../globalConfig'
 
-const createSpotWallet = async (accountId: string): Promise<void> => {
+const createSpotAndFundingWallet = async (accountId: string): Promise<void> => {
     try {
         const tokens = await models.Token.find().select('symbol').lean()
         if (!tokens || tokens.length == 0) {
@@ -20,13 +20,17 @@ const createSpotWallet = async (accountId: string): Promise<void> => {
             }
         })
 
-        await CainanceSequel.SpotWallet.bulkCreate(wallets)
+		const transaction = await CainanceSequel.sequelize.transaction(async t => {
+			await CainanceSequel.SpotWallet.bulkCreate(wallets)
+			await CainanceSequel.FundingWallet.bulkCreate(wallets)
+		})
+
     } catch (error) {
         throw new Error('createSpotWallet failed: ' + error.message)
     }
 }
 
-const createKeypair = (chainType: string) => {
+const generateKeypair = (chainType: string) => {
     if (chainType === 'evm') {
         const keypair = EvmKeypair.fromMnemonic(
             config.evmMnemonic,
@@ -35,6 +39,7 @@ const createKeypair = (chainType: string) => {
         return {
             publicKey: keypair.address,
             privateKey: keypair.privateKey,
+			chainType,
         }
     }
 
@@ -43,6 +48,7 @@ const createKeypair = (chainType: string) => {
         return {
             publicKey: keypair.publicKey.toString(),
             privateKey: Buffer.from(keypair.secretKey).toString('base64'),
+			chainType,
         }
     }
 }
@@ -75,16 +81,13 @@ const createAccount = async ({ email, password }) => {
                     email: email,
                     password: md5(password),
                     refCode: refCode,
-                    keypair: {
-                        evm: createKeypair('evm'),
-                        solana: createKeypair('solana'),
-                    },
+					keypair: [generateKeypair('evm'), generateKeypair('solana')],
                 },
             ],
             { session: session }
         )
 
-        await createSpotWallet(newAccount[0]._id.toString())
+        await createSpotAndFundingWallet(newAccount[0]._id.toString())
 
         await session.commitTransaction()
         await session.endSession()

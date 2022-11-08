@@ -28,6 +28,12 @@ const userRoutes = [
         auth: true,
     },
     {
+        path: '/user/funding_wallet',
+        method: 'get',
+        action: userActions.getFundingWallet,
+        auth: true,
+    },
+    {
         path: '/user/buy',
         method: 'post',
         action: userActions.buy,

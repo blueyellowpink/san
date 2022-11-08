@@ -61,11 +61,9 @@ const orderDefine = sequelize => {
         indexes: [
             {
                 using: 'BTREE',
-                fields: [
-                    'accountId'
-                ]
-            }
-        ]
+                fields: ['accountId'],
+            },
+        ],
     });
     return order;
 };

@@ -41,7 +41,7 @@ type TradingPairPrice = {
 
 export type TradingPair = {
     name: string
-    token: TradingPair
+    pair: TokenPair
     marketCap: Schema.Types.Decimal128
     summary: TradingPairSummary
     price: TradingPairPrice
@@ -56,7 +56,7 @@ const TradingPairSchema = new Schema<TradingPair>({
         unique: true,
         required: true,
     },
-    token: TokenPairSchema,
+    pair: TokenPairSchema,
     marketCap: {
         type: Schema.Types.Decimal128,
         default: 0.0,

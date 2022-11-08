@@ -6,11 +6,11 @@ const db_1 = require("@cainance/db");
 const protobuf_1 = require("@cainance/protobuf");
 const validate_1 = require("./validate");
 const kafka_1 = require("../../../libs/kafka");
-const getInitAllowance = (token, currentAmount, amount, price, orderType, orderSide) => {
+const getInitAllowance = (base, currentAmount, amount, price, orderType, orderSide) => {
     if (orderType === protobuf_1.proto.OrderType.LIMIT) {
         const initAllowance = orderSide === protobuf_1.proto.OrderSide.ASK ? amount : amount * price;
         if (currentAmount < initAllowance)
-            throw new Error(`insufficient ${token}`);
+            throw new Error(`insufficient ${base}`);
         return initAllowance;
     }
     if (orderType === protobuf_1.proto.OrderType.MARKET) {
@@ -19,20 +19,20 @@ const getInitAllowance = (token, currentAmount, amount, price, orderType, orderS
 };
 const addOrder = (req, orderSide) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     const args = yield (0, validate_1.validateAddOrder)(req.body);
-    const [token, fiat] = args.pair.split('/');
+    const [base, quote] = args.pair.split('/');
     try {
         const transaction = yield db_1.CainanceSequel.sequelize.transaction((t) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
             const wallet = yield db_1.CainanceSequel.SpotWallet.findOne({
                 where: {
                     accountId: req.user._id,
-                    token: orderSide == protobuf_1.proto.OrderSide.ASK ? token : fiat,
+                    token: orderSide == protobuf_1.proto.OrderSide.ASK ? base : quote,
                 },
                 attributes: ['amount'],
             });
             if (!wallet) {
                 throw new Error('Error place order');
             }
-            const initAllowance = getInitAllowance(token, parseFloat(wallet.amount), args.amount, args.price, args.orderType, orderSide);
+            const initAllowance = getInitAllowance(base, parseFloat(wallet.amount), args.amount, args.price, args.orderType, orderSide);
             const order = yield db_1.CainanceSequel.Order.create({
                 tradingPair: args.pair,
                 accountId: req.user._id,

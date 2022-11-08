@@ -20,7 +20,7 @@ type AddOrderResponse = {
 type CancelOrderResponse = object
 
 const getInitAllowance = (
-    token: string,
+    base: string,
     currentAmount: number,
     amount: number,
     price: number,
@@ -31,7 +31,7 @@ const getInitAllowance = (
         const initAllowance =
             orderSide === proto.OrderSide.ASK ? amount : amount * price
         if (currentAmount < initAllowance)
-            throw new Error(`insufficient ${token}`)
+            throw new Error(`insufficient ${base}`)
         return initAllowance
     }
 
@@ -42,7 +42,7 @@ const getInitAllowance = (
 
 const addOrder = async (req: Request, orderSide): Promise<AddOrderResponse> => {
     const args = await validateAddOrder(req.body)
-    const [token, fiat] = args.pair.split('/')
+    const [base, quote] = args.pair.split('/')
 
     try {
         const transaction = await CainanceSequel.sequelize.transaction(
@@ -50,7 +50,7 @@ const addOrder = async (req: Request, orderSide): Promise<AddOrderResponse> => {
                 const wallet = await CainanceSequel.SpotWallet.findOne({
                     where: {
                         accountId: req.user._id,
-                        token: orderSide == proto.OrderSide.ASK ? token : fiat,
+                        token: orderSide == proto.OrderSide.ASK ? base : quote,
                     },
                     attributes: ['amount'],
                 })
@@ -59,7 +59,7 @@ const addOrder = async (req: Request, orderSide): Promise<AddOrderResponse> => {
                 }
 
                 const initAllowance = getInitAllowance(
-                    token,
+                    base,
                     parseFloat(wallet.amount),
                     args.amount,
                     args.price,

@@ -1,5 +1,4 @@
 import { DataTypes } from 'sequelize'
-import { proto } from '@cainance/protobuf'
 
 const orderDefine = sequelize => {
     const order = sequelize.define(

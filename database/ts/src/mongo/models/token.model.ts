@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose'
 export type Token = {
     name: string
     symbol: string
+    chains: Array<Schema.Types.ObjectId>
     icon: string
     createdAt?: number
     updatedAt?: number
@@ -19,6 +20,13 @@ const TokenSchema = new Schema<Token>({
         unique: true,
         required: true,
     },
+    chains: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'chains',
+            required: true,
+        },
+    ],
     icon: {
         type: String,
         default: '',

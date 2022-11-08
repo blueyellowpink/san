@@ -11,6 +11,7 @@ const userActions = {
     generate2FaQr: generate2Fa_action_1.default,
     save2FaQr: save2FaQr_action_1.default,
     getSpotWallet: getWallet_1.getSpotWallet,
+    getFundingWallet: getWallet_1.getFundingWallet,
     buy: order_action_1.buy,
     sell: order_action_1.sell,
     cancel: order_action_1.cancel,

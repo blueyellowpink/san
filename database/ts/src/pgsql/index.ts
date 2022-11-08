@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import orderDefine, { Order } from './models/Order'
 import tradeDefine, { Trade } from './models/Trade'
-import { spotWalletDefine } from './models/Wallet'
+import { spotWalletDefine, fundingWalletDefine } from './models/Wallet'
 
 export { Order, Trade }
 
@@ -10,7 +10,9 @@ class CainanceSequel {
     static sequelize: any
     static Order: any
     static Trade: any
+    static Keypair: any
     static SpotWallet: any
+    static FundingWallet: any
 
     public static async connect(
         {
@@ -70,8 +72,10 @@ class CainanceSequel {
     private static initModel(): void {
         CainanceSequel.Order = orderDefine(CainanceSequel.sequelize)
         CainanceSequel.Trade = tradeDefine(CainanceSequel.sequelize)
-
         CainanceSequel.SpotWallet = spotWalletDefine(CainanceSequel.sequelize)
+        CainanceSequel.FundingWallet = fundingWalletDefine(
+            CainanceSequel.sequelize
+        )
     }
 
     private static initAssociation(): void {

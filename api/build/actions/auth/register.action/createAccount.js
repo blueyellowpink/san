@@ -8,7 +8,7 @@ const createRandomString_1 = tslib_1.__importDefault(require("../../../libs/rand
 const ethers_1 = require("ethers");
 const web3_js_1 = require("@solana/web3.js");
 const globalConfig_1 = tslib_1.__importDefault(require("../../../globalConfig"));
-const createSpotWallet = (accountId) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+const createSpotAndFundingWallet = (accountId) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const tokens = yield db_1.models.Token.find().select('symbol').lean();
         if (!tokens || tokens.length == 0) {
@@ -20,18 +20,22 @@ const createSpotWallet = (accountId) => tslib_1.__awaiter(void 0, void 0, void 0
                 token: token.symbol,
             };
         });
-        yield db_1.CainanceSequel.SpotWallet.bulkCreate(wallets);
+        const transaction = yield db_1.CainanceSequel.sequelize.transaction((t) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+            yield db_1.CainanceSequel.SpotWallet.bulkCreate(wallets);
+            yield db_1.CainanceSequel.FundingWallet.bulkCreate(wallets);
+        }));
     }
     catch (error) {
         throw new Error('createSpotWallet failed: ' + error.message);
     }
 });
-const createKeypair = (chainType) => {
+const generateKeypair = (chainType) => {
     if (chainType === 'evm') {
         const keypair = ethers_1.Wallet.fromMnemonic(globalConfig_1.default.evmMnemonic, `m/44'/60'/0'/0/1`);
         return {
             publicKey: keypair.address,
             privateKey: keypair.privateKey,
+            chainType,
         };
     }
     if (chainType === 'solana') {
@@ -39,6 +43,7 @@ const createKeypair = (chainType) => {
         return {
             publicKey: keypair.publicKey.toString(),
             privateKey: Buffer.from(keypair.secretKey).toString('base64'),
+            chainType,
         };
     }
 };
@@ -60,16 +65,15 @@ const createAccount = ({ email, password }) => tslib_1.__awaiter(void 0, void 0,
     const session = yield mongoose_1.default.startSession();
     try {
         session.startTransaction();
-        const newAccount = yield db_1.models.user.create([{
+        const newAccount = yield db_1.models.user.create([
+            {
                 email: email,
                 password: (0, md5_1.default)(password),
                 refCode: refCode,
-                keypair: {
-                    evm: createKeypair('evm'),
-                    solana: createKeypair('solana')
-                }
-            }], { session: session });
-        // await createSpotWallet(newAccount[0]._id.toString())
+                keypair: [generateKeypair('evm'), generateKeypair('solana')],
+            },
+        ], { session: session });
+        yield createSpotAndFundingWallet(newAccount[0]._id.toString());
         yield session.commitTransaction();
         yield session.endSession();
         return newAccount[0];

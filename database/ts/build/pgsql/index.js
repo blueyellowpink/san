@@ -46,13 +46,14 @@ class CainanceSequel {
         CainanceSequel.Order = (0, Order_1.default)(CainanceSequel.sequelize);
         CainanceSequel.Trade = (0, Trade_1.default)(CainanceSequel.sequelize);
         CainanceSequel.SpotWallet = (0, Wallet_1.spotWalletDefine)(CainanceSequel.sequelize);
+        CainanceSequel.FundingWallet = (0, Wallet_1.fundingWalletDefine)(CainanceSequel.sequelize);
     }
     static initAssociation() {
         /* An Order has many Trade(s) */
         CainanceSequel.Order.hasMany(CainanceSequel.Trade, {
             foreignKey: {
-                allowNull: false
-            }
+                allowNull: false,
+            },
         });
         CainanceSequel.Trade.belongsTo(CainanceSequel.Order);
     }

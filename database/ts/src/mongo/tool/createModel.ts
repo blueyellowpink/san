@@ -14,8 +14,8 @@ const createModel = ({ collectionName, schema, index }) => {
     })
 
     Schema.index({
-        createdAt: -1,
-        updatedAt: -1,
+        /* createdAt: -1,
+        updatedAt: -1, */
         ...(index || {}),
     })
 

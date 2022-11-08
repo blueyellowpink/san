@@ -32,6 +32,11 @@ const insertChains = async () => {
             symbol: 'dot',
             type: 'dot',
         },
+        {
+            name: 'Polygon',
+            symbol: 'polygon',
+            type: 'evm',
+        },
     ]
 
     const promises = chains.map(async chain => {
@@ -50,79 +55,100 @@ const insertTokens = async () => {
         {
             name: 'Bitcoin',
             symbol: 'BTC',
+            chains: ['bsc', 'eth'],
             icon: '',
         },
         {
             name: 'Ethereum',
             symbol: 'ETH',
+            chains: ['eth'],
             icon: '',
         },
         {
             name: 'TetherUs',
             symbol: 'USDT',
+            chains: ['eth', 'bsc', 'sol', 'tron'],
             icon: '',
         },
         {
             name: 'BNB',
             symbol: 'BNB',
+            chains: ['bsc'],
             icon: '',
         },
         {
             name: 'BUSD',
             symbol: 'BUSD',
+            chains: ['bsc'],
             icon: '',
         },
         {
             name: 'Solana',
             symbol: 'SOL',
+            chains: ['bsc', 'sol'],
             icon: '',
         },
         {
             name: 'Dogecoin',
             symbol: 'DOGE',
+            chains: ['bsc'],
             icon: '',
         },
         {
             name: 'Polkadot',
             symbol: 'DOT',
+            chains: ['dot'],
             icon: '',
         },
         {
             name: 'TRON',
             symbol: 'TRX',
+            chains: ['tron'],
             icon: '',
         },
         {
             name: 'SHIBA INU',
             symbol: 'SHIB',
+            chains: ['bsc'],
             icon: '',
         },
         {
             name: 'PancakeSwap',
             symbol: 'CAKE',
+            chains: ['bsc'],
             icon: '',
         },
         {
             name: 'Uniswap',
             symbol: 'UNI',
+            chains: ['eth'],
             icon: '',
         },
         {
-            name: 'Polygon',
+            name: 'Matic',
             symbol: 'MATIC',
+            chains: ['polygon', 'bsc', 'eth'],
             icon: '',
         },
         {
             name: 'NEAR Protocol',
             symbol: 'NEAR',
+            chains: ['near'],
             icon: '',
         },
     ]
+
+    const chains = await models.Chain.find().lean()
+    const chainIdMap = new Map()
+    for (const chain of chains) {
+        chainIdMap.set(chain.symbol, chain._id)
+    }
 
     const promises = tokens.map(async token => {
         const instance = new models.Token({
             name: token.name,
             symbol: token.symbol,
+            chains: token.chains.map(item => chainIdMap.get(item)),
             icon: token.icon,
         })
         await instance.save()
@@ -131,14 +157,14 @@ const insertTokens = async () => {
 }
 
 const insertTradingPairs = async () => {
-    const stablecoins = await models.Token.find({
+    const quotes = await models.Token.find({
         $or: [{ symbol: 'USDT' }, { symbol: 'BUSD' }],
     })
         .select('symbol')
         .lean()
-    // console.log(stablecoins)
+    // console.log(quotes)
 
-    const tokens = await models.Token.find({
+    const bases = await models.Token.find({
         $and: [
             {
                 symbol: { $ne: 'USDT' },
@@ -150,15 +176,15 @@ const insertTradingPairs = async () => {
     })
         .select('symbol')
         .lean()
-    // console.log(tokens)
+    // console.log(bases)
 
-    const promises = tokens.map(async token => {
-        const future = stablecoins.map(async coin => {
+    const promises = bases.map(async base => {
+        const future = quotes.map(async quote => {
             const pair = new models.TradingPair({
-                name: token.symbol + '/' + coin.symbol,
-                token: {
-                    cryptocurrency: token._id,
-                    stablecoin: coin._id,
+                name: base.symbol + '/' + quote.symbol,
+                pair: {
+                    base: base._id,
+                    quote: quote._id,
                 },
             })
             await pair.save()
@@ -169,10 +195,12 @@ const insertTradingPairs = async () => {
 }
 
 !(async () => {
-    await connectToMongo('mongodb://localhost:27017')
+    await connectToMongo(
+        'mongodb://localhost:27017/cainance-staging&replicaSet=replicaSet0'
+    )
 
-    await insertChains()
-    await insertTokens()
+    // await insertChains()
+    // await insertTokens()
     await insertTradingPairs()
 
     process.exit(0)
