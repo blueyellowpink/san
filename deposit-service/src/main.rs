@@ -1,52 +1,46 @@
-mod models;
+mod database;
+mod net_runner;
 
-use models::keypair::Keypair;
-use mongodb::{
-    // bson::{doc, Document},
-    options::ClientOptions,
-    Client,
-};
+use database::{mongo::KeypairRepo, pgsql::WalletRepo};
+use net_runner::NetRunner;
 use std::sync::Arc;
 
 #[tokio::main]
 async fn main() {
-    let mut client_options =
-        ClientOptions::parse("mongodb://localhost:27017/cainance-staging&replicaSet=replicaSet0")
-            .await
-            .unwrap();
-    client_options.app_name = Some("My App".to_string());
+    /* let keypair_repo = KeypairRepo::new(
+        "mongodb://localhost:27017/cainance-staging?replicaSet=replicaSet0",
+        "cainance-staging",
+    )
+    .await; */
 
-    let client = Arc::new(Client::with_options(client_options).unwrap());
+    /* keypair_repo
+    .find_keypair("5oDkmZ3orb6y1Ft4GFxwUfkcy5S7d8fKHMamVZkm6QDM")
+    .await; */
 
-    let client_ref: Arc<Client> = Arc::clone(&client);
-    let t1 = tokio::spawn(async move {
-        for db_name in client_ref.list_database_names(None, None).await.unwrap() {
-            println!("{}", db_name);
-        }
-    });
+    /* let tokens = vec![
+        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    ];
 
-    let client_ref: Arc<Client> = Arc::clone(&client);
-    let t2 = tokio::spawn(async move {
-        let db = client_ref.database("cainance-staging");
-        for collection_name in db.list_collection_names(None).await.unwrap() {
-            println!("{}", collection_name);
-        }
-    });
+    let net_runner =
+        NetRunner::new("wss://mainnet.infura.io/ws/v3/780c53da77ce40e991814c8ad87dbe7d").await;
+    let net_runner = Arc::new(net_runner);
 
-    let client_ref: Arc<Client> = Arc::clone(&client);
-    let t3 = tokio::spawn(async move {
-        let db = client_ref.database("cainance-staging");
-        let keypair_collection = db.collection::<Keypair>("keypairs");
-        let keypairs = vec![Keypair {
-            user_id: "user".to_string(),
-            public_key: "public".to_string(),
-            private_key: "private".to_string(),
-        }];
-        keypair_collection
-            .insert_many(keypairs, None)
-            .await
-            .unwrap();
-    });
+    let mut index = 0;
+    let mut tasks = vec![];
+    for token in tokens {
+        let net_runner_ref = Arc::clone(&net_runner);
+        tasks.push(tokio::spawn(async move {
+            net_runner_ref.watch(token, index).await;
+        }));
+        index += 1;
+    }
 
-    let _ = tokio::join!(t2, t1, t3);
+    for task in tasks {
+        task.await;
+    } */
+
+    let mut wallet_repo = WalletRepo::new();
+    wallet_repo.find_funding_wallet();
+    wallet_repo.find_spot_wallet();
 }

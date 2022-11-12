@@ -196,11 +196,11 @@ const insertTradingPairs = async () => {
 
 !(async () => {
     await connectToMongo(
-        'mongodb://localhost:27017/cainance-staging&replicaSet=replicaSet0'
+        'mongodb://localhost:27017/cainance-staging?replicaSet=replicaSet0'
     )
 
-    // await insertChains()
-    // await insertTokens()
+    await insertChains()
+    await insertTokens()
     await insertTradingPairs()
 
     process.exit(0)
