@@ -38,6 +38,7 @@ impl NetRunner {
                 }
             }
         })
-        .await;
+        .await
+        .unwrap();
     }
 }

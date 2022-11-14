@@ -1,9 +1,7 @@
 mod database;
 mod net_runner;
 
-use database::{mongo::KeypairRepo, pgsql::WalletRepo};
-use net_runner::NetRunner;
-use std::sync::Arc;
+use database::pgsql::WalletRepo;
 
 #[tokio::main]
 async fn main() {
@@ -41,6 +39,7 @@ async fn main() {
     } */
 
     let mut wallet_repo = WalletRepo::new();
-    wallet_repo.find_funding_wallet();
-    wallet_repo.find_spot_wallet();
+    // wallet_repo.find_funding_wallet("636a948d18c2540f6f06c475", "BNB");
+    // wallet_repo.find_spot_wallet("636a948d18c2540f6f06c475", "USDT");
+    wallet_repo.update_funding_wallet("636a948d18c2540f6f06c475", "DOT", "1000.0");
 }
